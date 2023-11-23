@@ -1,0 +1,26 @@
+version: '3.9'
+
+services:
+  task-organizer-api:
+    build:
+      context: .
+    container_name: task-organizer-api
+    depends_on:
+      - postgres-db
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_R2DBC_URL: r2dbc:postgresql://postgres-db:5432/task_organizer_db
+      SPRING_R2DBC_USERNAME: user
+      SPRING_R2DBC_PASSWORD: taskdb
+
+  postgres-db:
+    container_name: postgres-db
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=taskdb
+      - POSTGRES_USER=user
+      - POSTGRES_DB=task_organizer_db
+
