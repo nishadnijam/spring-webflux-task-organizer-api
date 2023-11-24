@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 @Configuration
-@Profile("!test")
+@Profile("production")
 @EnableConfigurationProperties({ R2dbcProperties.class, FlywayProperties.class })
 class FlywayDBConfiguration {
     @Bean(initMethod = "migrate")
