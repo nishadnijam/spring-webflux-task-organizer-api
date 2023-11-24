@@ -1,33 +1,31 @@
 package com.github.nishadnijam.springwebfluxtaskorganizerapi.configuration;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.extension.BeforeAllCallback;
+import org.junit.jupiter.api.extension.ExtensionContext;
 import org.testcontainers.containers.PostgreSQLContainer;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
-import org.testcontainers.utility.DockerImageName;
+import org.testcontainers.utility.TestcontainersConfiguration;
 
-@Testcontainers
-public abstract class BaseIntegrationTest {
+public class BaseIntegrationTest implements BeforeAllCallback {
 
-    @Container
-    protected static final PostgreSQLContainer<?> postgreSQLContainer =
-            new PostgreSQLContainer<>(DockerImageName.parse("postgres:latest"))
-                    .withDatabaseName("testdb")
-                    .withUsername("testuser")
-                    .withPassword("testpassword");
+    private static PostgreSQLContainer<?> postgreSQLContainer;
 
-    @BeforeAll
-    static void beforeAll() {
-        postgreSQLContainer.start();
-        System.setProperty("spring.flyway.url", postgreSQLContainer.getJdbcUrl());
-        System.setProperty("spring.r2dbc.username", postgreSQLContainer.getUsername());
-        System.setProperty("spring.r2dbc.password", postgreSQLContainer.getPassword());
-
-    }
-
-    @AfterAll
-    static void afterAll() {
-        postgreSQLContainer.stop();
+    @Override
+    public void beforeAll(ExtensionContext context) {
+        if (postgreSQLContainer == null) {
+            TestcontainersConfiguration.getInstance()
+                    .updateUserConfig("testcontainers.reuse.enable", "true");
+            postgreSQLContainer = new PostgreSQLContainer<>("postgres:latest");
+            postgreSQLContainer.withReuse(false);
+            postgreSQLContainer.start();
+            System.setProperty("spring.r2dbc.url", "r2dbc:postgresql://" +
+                    postgreSQLContainer.getHost() + ":" +
+                    postgreSQLContainer.getFirstMappedPort() + "/" +
+                    postgreSQLContainer.getDatabaseName() + "?loggerLevel=OFF");
+            System.setProperty("spring.r2dbc.username", postgreSQLContainer.getUsername());
+            System.setProperty("spring.r2dbc.password", postgreSQLContainer.getPassword());
+            System.setProperty("spring.flyway.url", postgreSQLContainer.getJdbcUrl());
+            System.setProperty("spring.flyway.user", postgreSQLContainer.getUsername());
+            System.setProperty("spring.flyway.password", postgreSQLContainer.getPassword());
+        }
     }
 }

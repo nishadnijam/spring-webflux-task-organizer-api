@@ -14,4 +14,6 @@ public interface TaskService {
     Mono<Task> updateTask(Long taskId, Task updatedTask);
 
     Mono<Void> deleteTask(Long taskId);
+
+    Mono<Task> completeTaskById(Long taskId);
 }
