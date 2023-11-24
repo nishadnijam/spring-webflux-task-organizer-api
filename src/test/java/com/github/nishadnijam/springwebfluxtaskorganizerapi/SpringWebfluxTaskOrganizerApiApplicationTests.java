@@ -11,8 +11,6 @@ import org.springframework.test.context.ActiveProfiles;
 @ExtendWith(BaseIntegrationTest.class)
 class SpringWebfluxTaskOrganizerApiApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
-
+  @Test
+  void contextLoads() {}
 }

@@ -15,17 +15,31 @@ import java.time.LocalDateTime;
 @Table(name = "task")
 public class Task {
 
-    @Id
-    private Long id;
-    private String title;
-    private String description;
-    private String category;
-    private LocalDateTime dueDate;
-    private boolean completed;
+  @Id private Long id;
+  private String title;
+  private String description;
+  private String category;
+  private LocalDateTime dueDate;
+  private boolean completed;
 
-    public static Task copyTask(Task sourceTask) {
-        Task targetTask = new Task();
-        BeanUtils.copyProperties(sourceTask, targetTask);
-        return targetTask;
-    }
+  public static Task copyTask(Task sourceTask) {
+    Task targetTask = new Task();
+    BeanUtils.copyProperties(sourceTask, targetTask);
+    return targetTask;
+  }
+
+  public static Task from(
+      String title,
+      String description,
+      String category,
+      LocalDateTime dueDate,
+      boolean isCompleted) {
+    Task task = new Task();
+    task.setTitle(title);
+    task.setDescription(description);
+    task.setCategory(category);
+    task.setDueDate(dueDate);
+    task.setCompleted(isCompleted);
+    return task;
+  }
 }

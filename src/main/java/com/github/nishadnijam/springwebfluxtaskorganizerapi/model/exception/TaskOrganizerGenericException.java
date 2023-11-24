@@ -7,5 +7,5 @@ import lombok.RequiredArgsConstructor;
 @Getter
 public class TaskOrganizerGenericException {
 
-    private final String errorMessage;
+  private final String errorMessage;
 }

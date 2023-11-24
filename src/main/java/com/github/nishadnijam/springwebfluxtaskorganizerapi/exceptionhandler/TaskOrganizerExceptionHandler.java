@@ -13,9 +13,10 @@ import reactor.core.publisher.Mono;
 @Slf4j
 public class TaskOrganizerExceptionHandler {
 
-    @ExceptionHandler(NotImplementedException.class)
-    @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
-    public Mono<TaskOrganizerGenericException> handleNotImplementedException(NotImplementedException exception) {
-        return Mono.just(new TaskOrganizerGenericException(exception.getMessage()));
-    }
+  @ExceptionHandler(NotImplementedException.class)
+  @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
+  public Mono<TaskOrganizerGenericException> handleNotImplementedException(
+      NotImplementedException exception) {
+    return Mono.just(new TaskOrganizerGenericException(exception.getMessage()));
+  }
 }

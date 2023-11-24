@@ -9,8 +9,7 @@ import org.springframework.web.reactive.config.EnableWebFlux;
 @EnableWebFlux
 public class SpringWebfluxTaskOrganizerApiApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(SpringWebfluxTaskOrganizerApiApplication.class, args);
-	}
-
+  public static void main(String[] args) {
+    SpringApplication.run(SpringWebfluxTaskOrganizerApiApplication.class, args);
+  }
 }

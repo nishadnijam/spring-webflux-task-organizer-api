@@ -12,35 +12,32 @@ import reactor.core.publisher.Mono;
 @RequestMapping("v1/tasks")
 public class TaskController {
 
-    @Autowired
-    private TaskService taskService;
+  @Autowired private TaskService taskService;
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Mono<Task> createTask(@RequestBody Task task) {
-        return taskService.createTask(task);
-    }
+  @PostMapping
+  @ResponseStatus(HttpStatus.CREATED)
+  public Mono<Task> createTask(@RequestBody Task task) {
+    return taskService.createTask(task);
+  }
 
-    @GetMapping
-    public Flux<Task> getAllTasks() {
-        return taskService.getAllTasks();
-    }
+  @GetMapping
+  public Flux<Task> getAllTasks() {
+    return taskService.getAllTasks();
+  }
 
-    @GetMapping("/{taskId}")
-    public Mono<Task> getTaskById(@PathVariable Long taskId) {
-        return taskService.getTaskById(taskId);
-    }
+  @GetMapping("/{taskId}")
+  public Mono<Task> getTaskById(@PathVariable Long taskId) {
+    return taskService.getTaskById(taskId);
+  }
 
-    @PutMapping("/{taskId}")
-    public Mono<Task> updateTask(@PathVariable Long taskId, @RequestBody Task updatedTask) {
-        return taskService.updateTask(taskId, updatedTask);
-    }
+  @PutMapping("/{taskId}")
+  public Mono<Task> updateTask(@PathVariable Long taskId, @RequestBody Task updatedTask) {
+    return taskService.updateTask(taskId, updatedTask);
+  }
 
-    @DeleteMapping("/{taskId}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public Mono<Void> deleteTask(@PathVariable Long taskId) {
-        return taskService.deleteTask(taskId);
-    }
-
-
+  @DeleteMapping("/{taskId}")
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  public Mono<Void> deleteTask(@PathVariable Long taskId) {
+    return taskService.deleteTask(taskId);
+  }
 }

@@ -5,15 +5,15 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public interface TaskService {
-    Mono<Task> createTask(Task task);
+  Mono<Task> createTask(Task task);
 
-    Flux<Task> getAllTasks();
+  Flux<Task> getAllTasks();
 
-    Mono<Task> getTaskById(Long taskId);
+  Mono<Task> getTaskById(Long taskId);
 
-    Mono<Task> updateTask(Long taskId, Task updatedTask);
+  Mono<Task> updateTask(Long taskId, Task updatedTask);
 
-    Mono<Void> deleteTask(Long taskId);
+  Mono<Void> deleteTask(Long taskId);
 
-    Mono<Task> completeTaskById(Long taskId);
+  Mono<Task> completeTaskById(Long taskId);
 }
